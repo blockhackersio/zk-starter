@@ -26,8 +26,8 @@ describe("Verifier", () => {
     it("should fail an invalid proof", async () => {
       const { verifier } = await loadFixture(deployVerifierFixture);
 
-      const proof = await generateGroth16Proof({ a: "3", b: "2" }, "hello");
-      await expect(verifier.verify(proof, ["5"])).to.be.revertedWith(
+      const proof = await generateGroth16Proof({ a: "4", b: "10" }, "hello");
+      await expect(verifier.verify(proof, ["44"])).to.be.revertedWith(
         "invalid proof"
       );
     });
