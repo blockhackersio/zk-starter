@@ -1,4 +1,4 @@
-# An opinionated circom starter repo
+# An opinionated zero knowledge starter repo
 
 | Script  | Description                      |
 | ------- | -------------------------------- |
