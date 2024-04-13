@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "./scripts/build.sh",
-    "test": "./scripts/test.sh"
+    "test": "./scripts/test.sh",
+    "postinstall": "./scripts/install.sh"
   },
   "keywords": [],
   "author": "",
