@@ -30,6 +30,18 @@ pnpm install
 
 Note: The installation process involves downloading large files and may take some time.
 
+## NixOS Setup
+
+This repository comes with a nix flake for easy installation of dependencies.
+
+Ensure direnv is installed and then run:
+
+```
+direnv allow
+```
+
+In order to get a shell for the folder with the correct dependencies installed.
+
 ## Usage
 
 This repository provides several scripts to help streamline the development and testing process:
