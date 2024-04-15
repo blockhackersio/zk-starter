@@ -25,4 +25,4 @@ pnpm install
 | ------- | -------------------------------- |
 | `pnpm build` | Build the circuits and contracts |
 | `pnpm test`  | Test the circuits and contracts  |
-| `pnpm dev`  | Build the circuits run a hardhat node and deploy to the hardhat node  | 
+| `pnpm dev`  | Build the circuits run a hardhat node and deploy to the hardhat node and run the frontend on http://localhost:5173  | 
