@@ -1,4 +1,5 @@
 /build
+/dist
 /.direnv
 /node_modules
 /compiled

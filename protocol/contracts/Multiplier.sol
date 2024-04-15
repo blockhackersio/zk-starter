@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.24;
 
-import {Groth16Verifier} from "./generated/hello.sol";
+import {Groth16Verifier} from "./generated/multiplier.sol";
 
-contract Verifier {
+contract Multiplier {
     Groth16Verifier public verifier;
 
     constructor(address _verifier) payable {
