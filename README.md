@@ -42,6 +42,68 @@ direnv allow
 
 In order to get a shell for the folder with the correct dependencies installed.
 
+## Basic Circuit
+
+The repository demonstrates a basic [Multiplier circuit](protocol/circuits/multiplier.circom):
+
+```circom
+pragma circom 2.0.0;
+
+template Multiplier() {
+  signal input a;
+  signal input b;
+  signal output c;
+
+  c <== a * b;
+}
+
+component main = Multiplier();
+```
+
+There is a basic [Multiplier](protocol/src/index.ts) prover created to form the base of your protocol sdk:
+
+```ts
+export class Multiplier {
+  constructor(
+    private provider: Provider,
+    private address: string 
+  ) { }
+
+  async prove(a: number, b: number) {
+    return await generateGroth16Proof({ a, b }, "multiplier");
+  }
+
+  async verify(proof: string, c: number) {
+    const verifier = Multiplier__factory.connect(this.address, this.provider);
+    return await verifier.verify(proof, [c]);
+  }
+}
+```
+
+
+You can test the circuit using the [hardhat tests](protocol/test/Multiplier.ts) which allow for proving logic:
+
+```ts
+it("should pass a valid proof", async () => {
+  const { verifier } = await loadFixture(deployVerifierFixture);
+  const address = await verifier.getAddress();
+  const multiplier = new Multiplier(ethers.provider, address);
+  const proof = await multiplier.prove(4, 11);
+  await multiplier.verify(proof, 44);
+});
+
+it("should fail an invalid proof", async () => {
+  const { verifier } = await loadFixture(deployVerifierFixture);
+  const address = await verifier.getAddress();
+  const multiplier = new Multiplier(ethers.provider, address);
+  const proof = await multiplier.prove(4, 10);
+  await expect(multiplier.verify(proof, 44)).to.be.revertedWith(
+    "invalid proof"
+  );
+});
+```
+
+
 ## Usage
 
 This repository provides several scripts to help streamline the development and testing process:
