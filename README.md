@@ -38,7 +38,7 @@ This repository provides several scripts to help streamline the development and 
 | -------------- | -------------------------------------------------------------------------------------- |
 | `pnpm build`   | Builds the circuits and smart contracts, preparing all necessary elements for testing. |
 | `pnpm test`    | Runs tests for both the circuits and the smart contracts to ensure integrity.          |
-| `pnpm dev`     | Executes a full build, spins up a Hardhat local node, deploys contracts, and launches the React frontend at [http://localhost:5173](http://localhost:5173). |
+| `pnpm dev`     | Executes a full build, spins up a Hardhat local node, deploys contracts, and launches<br/> the React frontend at [http://localhost:5173](http://localhost:5173). |
 
 ## Contributing
 
