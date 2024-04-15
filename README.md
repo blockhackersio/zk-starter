@@ -5,8 +5,8 @@ This repository offers an integrated setup for developing and testing zero-knowl
 
 ## Key Features
 
-- **Hardhat**: Utilized for deploying smart contracts, verifying proofs, and testing the contracts in a local development environment.
 - **Circom**: Empowers developers with tools for creating and managing zero-knowledge proofs efficiently.
+- **Hardhat**: Utilized for deploying smart contracts, verifying proofs, and testing the contracts in a local development environment.
 - **React Frontend**: A ready-to-use frontend setup to interact with your circuits and contracts, simulating real-world usage.
 
 ## Prerequisites
