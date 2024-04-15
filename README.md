@@ -1,8 +1,8 @@
 # An opinionated zero knowledge starter repo
 
-- Hardhat
-- Circom
-- React
+- **Hardhat** to deploy smart contracts verify proofs and test the contracts
+- **Circom** for Zero Knowledge Proving
+- **React Frontend** to test the circuits manually in a production like environment.
 
 ## Installation
 
