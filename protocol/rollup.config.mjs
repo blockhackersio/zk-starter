@@ -1,5 +1,6 @@
 import dts from "rollup-plugin-dts";
 import esbuild from "rollup-plugin-esbuild";
+import json from "@rollup/plugin-json";
 
 export function bundle(...inputMaybeArray) {
   const inputArr = Array.isArray(inputMaybeArray)
@@ -12,7 +13,7 @@ export function bundle(...inputMaybeArray) {
       {
         input,
         external: (id) => !/^[./]/.test(id),
-        plugins: [esbuild()],
+        plugins: [esbuild(),json()],
         output: [
           {
             file: `./dist/${name}.js`,
@@ -34,7 +35,7 @@ export function bundle(...inputMaybeArray) {
       {
         input,
         external: (id) => !/^[./]/.test(id),
-        plugins: [dts()],
+        plugins: [dts(),json()],
         output: {
           file: `./dist/${name}.d.ts`,
           format: "es",

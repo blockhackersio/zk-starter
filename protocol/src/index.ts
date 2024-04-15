@@ -3,6 +3,7 @@
 import { Provider } from "ethers";
 import { Multiplier__factory } from "../typechain-types";
 import { generateGroth16Proof } from "./zklib";
+export * from "./config";
 
 export class Multiplier {
   constructor(

@@ -6,7 +6,10 @@
   "scripts": {
     "build": "./scripts/build.sh",
     "test": "./scripts/test.sh",
-    "postinstall": "./scripts/install.sh"
+    "deploy:localhost": "./scripts/deploy.sh localhost",
+    "node": "hardhat node",
+    "postinstall": "./scripts/install.sh",
+    "dev": "concurrently -r \"pnpm node\" \"sleep 2 && pnpm deploy:localhost\""
   },
   "exports": {
     ".": {
@@ -26,6 +29,7 @@
     "@types/snarkjs": "^0.7.8",
     "circom_tester": "^0.0.20",
     "circomlib": "^2.0.5",
+    "concurrently": "^8.2.2",
     "ethers": "6.11.1",
     "hardhat": "^2.22.2",
     "mocha": "^10.4.0",
@@ -34,6 +38,7 @@
     "solc": "0.8.24"
   },
   "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
     "@types/chai": "4",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.12.7",

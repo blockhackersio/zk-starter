@@ -5,12 +5,17 @@
   "main": "index.js",
   "scripts": {
     "build": "cd protocol && pnpm build",
-    "test": "cd protocol && pnpm test"
+    "test": "cd protocol && pnpm test",
+    "dev": "concurrently -r \"cd protocol && pnpm dev\" \"wait-on tcp:8545 && cd frontend && pnpm dev\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "engine": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0"
   }
 }

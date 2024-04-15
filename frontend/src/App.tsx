@@ -1,37 +1,61 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { FormEvent, useState } from "react";
 import "./App.css";
-import { foo } from "@blockhackers/protocol";
-
-foo();
-
+import { Multiplier, getAddress } from "@blockhackers/protocol";
+import { JsonRpcProvider } from "ethers";
+const provider = new JsonRpcProvider();
 function App() {
-  const [count, setCount] = useState(0);
+  const [status, setStatus] = useState<"init" | "error" | "success">("init");
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    setStatus("init");
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const a = Number(data.get("a"));
+    const b = Number(data.get("b"));
+    const c = Number(data.get("c"));
+    console.log({ a, b, c });
+    const multiplier = new Multiplier(
+      provider,
+      getAddress("localhost", "Multiplier")
+    );
+    const proof = await multiplier.prove(a, b);
+    try {
+      await multiplier.verify(proof, c);
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <form
+      onSubmit={onSubmit}
+      style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+    >
+      <div style={{ display: "flex", gap: "10px" }}>
+        <label>a: </label>
+        <input name="a" />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <label>b: </label>
+        <input name="b" />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <label>c: </label>
+        <input name="c" />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        <button>Prove and verify</button>
+        {status === "error" && <div style={{ color: "red" }}>×</div>}
+        {status === "success" && <div style={{ color: "green" }}>✓</div>}
+      </div>
+    </form>
   );
 }
 
