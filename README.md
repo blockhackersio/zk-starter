@@ -60,7 +60,7 @@ template Multiplier() {
 component main = Multiplier();
 ```
 
-There is a basic [Multiplier](protocol/src/index.ts) prover created to form the base of your protocol sdk:
+There is a basic [Multiplier Prover](protocol/src/index.ts) created to form the base of your protocol sdk:
 
 ```ts
 export class Multiplier {
@@ -81,7 +81,7 @@ export class Multiplier {
 ```
 
 
-You can test the circuit using the [hardhat tests](protocol/test/Multiplier.ts) which allow for proving logic:
+You can test the circuit using the [Hardhat Tests](protocol/test/Multiplier.ts) which allow for testing integration logic with the prover:
 
 ```ts
 it("should pass a valid proof", async () => {
@@ -102,6 +102,67 @@ it("should fail an invalid proof", async () => {
   );
 });
 ```
+
+Lastly you can edit the [Frontend React Application](frontend/src/App.tsx) to create real experiences for users:
+
+```tsx
+function App() {
+  const [status, setStatus] = useState<"init" | "error" | "success">("init");
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    setStatus("init");
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const a = Number(data.get("a"));
+    const b = Number(data.get("b"));
+    const c = Number(data.get("c"));
+    console.log({ a, b, c });
+    const multiplier = new Multiplier(
+      provider,
+      getAddress("localhost", "Multiplier")
+    );
+    const proof = await multiplier.prove(a, b);
+    try {
+      await multiplier.verify(proof, c);
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+    }
+  }
+
+  return (
+    <form
+      onSubmit={onSubmit}
+      style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+    >
+      <div style={{ display: "flex", gap: "10px" }}>
+        <label>a: </label>
+        <input name="a" />
+      </div>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <label>b: </label>
+        <input name="b" />
+      </div>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <label>c: </label>
+        <input name="c" />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        <button>Prove and verify</button>
+        {status === "error" && <div style={{ color: "red" }}>×</div>}
+        {status === "success" && <div style={{ color: "green" }}>✓</div>}
+      </div>
+    </form>
+  );
+}
+```
+
 
 
 ## Usage
