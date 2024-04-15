@@ -19,7 +19,11 @@ Install node dependencies:
 pnpm install
 ```
 
+Note this will download the powers of tau base file.
 
+This may take time. 
+
+## Scripts
 
 | Script  | Description                      |
 | ------- | -------------------------------- |
