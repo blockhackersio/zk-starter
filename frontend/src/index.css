@@ -66,3 +66,28 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label input {
+  margin-left: 10px;
+  padding: 10px;
+}
+
+.success {
+  color: #00ff00;
+}
+
+.error {
+  color: #ff0000;
+}
+
+pre {
+  max-width: 400px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
