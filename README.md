@@ -181,7 +181,7 @@ This repository provides several scripts to help streamline the development and 
 To add a new circuit you need to do the following:
 
 1. create a new circom file `./circuits/new_circuit.circom`
-2. Build the project with `pnpm build` this will buid the following files:
+2. Build the project with `pnpm build` this will create the following files:
    - `./compiled/new_circuit_js/**`
    - `./compiled/new_circuit.r1cs`
    - `./compiled/new_circuit.zkey`
