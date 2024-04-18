@@ -60,44 +60,44 @@ template Multiplier() {
 component main = Multiplier();
 ```
 
-There is a basic [Multiplier Prover](protocol/src/index.ts) created to form the base of your protocol sdk:
+There is a basic [Prover](protocol/src/index.ts) created to form the base of your protocol sdk:
 
 ```ts
-export class Multiplier {
+export class CircomExample {
   constructor(
     private provider: Provider,
     private address: string 
   ) { }
 
-  async prove(a: number, b: number) {
+  async multiplierProve(a: number, b: number) {
     return await generateGroth16Proof({ a, b }, "multiplier");
   }
 
-  async verify(proof: string, c: number) {
-    const verifier = Multiplier__factory.connect(this.address, this.provider);
-    return await verifier.verify(proof, [c]);
+  async multiplierVerify(proof: string, c: number) {
+    const verifier = CircomExample__factory.connect(this.address, this.provider);
+    return await verifier.multiplierVerify(proof, [c]);
   }
 }
 ```
 
 
-You can test the circuit using the [Hardhat Tests](protocol/test/Multiplier.ts) which allow for testing integration logic with the prover:
+You can test the circuit using the [Hardhat Tests](protocol/test/circom_tests.ts) which allow for testing integration logic with the prover:
 
 ```ts
 it("should pass a valid proof", async () => {
   const { verifier } = await loadFixture(deployVerifierFixture);
   const address = await verifier.getAddress();
-  const multiplier = new Multiplier(ethers.provider, address);
-  const proof = await multiplier.prove(4, 11);
-  await multiplier.verify(proof, 44);
+  const circomExample = new CircomExample(ethers.provider, address);
+  const proof = await circomExample.multiplierProve(4, 11);
+  await circomExample.multiplierVerify(proof, 44);
 });
 
 it("should fail an invalid proof", async () => {
   const { verifier } = await loadFixture(deployVerifierFixture);
   const address = await verifier.getAddress();
-  const multiplier = new Multiplier(ethers.provider, address);
-  const proof = await multiplier.prove(4, 10);
-  await expect(multiplier.verify(proof, 44)).to.be.revertedWith(
+  const circomExample = new CircomExample(ethers.provider, address);
+  const proof = await circomExample.multiplierProve(4, 10);
+  await expect(circomExample.multiplierVerify(proof, 44)).to.be.revertedWith(
     "invalid proof"
   );
 });
@@ -116,13 +116,13 @@ function App() {
     const b = Number(data.get("b"));
     const c = Number(data.get("c"));
     console.log({ a, b, c });
-    const multiplier = new Multiplier(
+    const example = new CircomExample(
       provider,
-      getAddress("localhost", "Multiplier")
+      getAddress("chain-31337", "CircomExample")
     );
-    const proof = await multiplier.prove(a, b);
+    const proof = await example.multiplierProve(a, b);
     try {
-      await multiplier.verify(proof, c);
+      await example.multiplierVerify(proof, c);
       setStatus("success");
     } catch (err) {
       setStatus("error");
