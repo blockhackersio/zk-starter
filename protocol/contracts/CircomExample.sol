@@ -3,11 +3,11 @@ pragma solidity ^0.8.24;
 
 import {Groth16Verifier} from "./generated/multiplier.sol";
 
-contract Multiplier {
-    Groth16Verifier public verifier;
+contract CircomExample {
+    Groth16Verifier public multiplier;
 
-    constructor(address _verifier) payable {
-        verifier = Groth16Verifier(_verifier);
+    constructor(address _multiplier) payable {
+        multiplier = Groth16Verifier(_multiplier);
     }
 
     function parseProof(
@@ -21,10 +21,10 @@ contract Multiplier {
             .decode(data, (uint, uint, uint, uint, uint, uint, uint, uint));
     }
 
-    function verify(bytes memory _proof, uint[1] memory _pubSignals) public view {
+    function multiplierVerify(bytes memory _proof, uint[1] memory _pubSignals) public view {
         (uint[2] memory a, uint[2][2] memory b, uint[2] memory c) = parseProof(
             _proof
         );
-        require(verifier.verifyProof(a, b, c, _pubSignals), "invalid proof");
+        require(multiplier.verifyProof(a, b, c, _pubSignals), "invalid proof");
     }
 }

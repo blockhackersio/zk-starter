@@ -1,22 +1,12 @@
-import localhost from "../ignition/deployments/chain-31337/deployed_addresses.json";
+import deployments from "../deployments.json";
 
-const ChainLookup = {
-  localhost,
-};
+type DeploymentJson = typeof deployments;
 
-export type Network = keyof typeof ChainLookup;
+export type Network = keyof DeploymentJson;
 
-// This utility type extracts keys but removes the 'Protocol#' prefix for convenience
-type ProtocolKeys = {
-  [K in keyof typeof localhost as K extends `Protocol#${infer Rest}`
-  ? Rest
-  : never]: (typeof localhost)[K];
-};
-
-export function getAddress<T extends Network, K extends keyof ProtocolKeys>(
+export function getAddress<T extends Network, K extends keyof DeploymentJson[T]>(
   chain: T,
   name: K
 ): string {
-  const key = `Protocol#${name}` as keyof (typeof ChainLookup)[T];
-  return ChainLookup[chain][key] as string;
+  return deployments[chain][name] as string;
 }

@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import "./App.css";
-import { Multiplier, getAddress } from "@blockhackers/protocol";
+import { CircomExample, getAddress } from "@blockhackers/protocol";
 import { JsonRpcProvider } from "ethers";
 const provider = new JsonRpcProvider();
 function App() {
@@ -13,13 +13,13 @@ function App() {
     const b = Number(data.get("b"));
     const c = Number(data.get("c"));
     console.log({ a, b, c });
-    const multiplier = new Multiplier(
+    const example = new CircomExample(
       provider,
-      getAddress("localhost", "Multiplier")
+      getAddress("chain-31337", "CircomExample")
     );
-    const proof = await multiplier.prove(a, b);
+    const proof = await example.multiplierProve(a, b);
     try {
-      await multiplier.verify(proof, c);
+      await example.multiplierVerify(proof, c);
       setStatus("success");
     } catch (err) {
       setStatus("error");

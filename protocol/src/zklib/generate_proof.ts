@@ -1,7 +1,6 @@
 import { CircuitSignals, groth16 } from "snarkjs";
 import { getWasmFileLocation, getZkeyFileLocation } from "./key_locator";
-import { toFixedHex } from "./utils";
-import { AbiCoder } from "ethers";
+import { serializeG16Proof } from "./serialize_proof";
 
 export async function generateGroth16Proof(
   inputs: CircuitSignals,
@@ -11,25 +10,7 @@ export async function generateGroth16Proof(
   const zkeyLocation = getZkeyFileLocation(circuitName);
 
   const { proof } = await groth16.fullProve(inputs, wasmLocation, zkeyLocation);
-  const abi = new AbiCoder();
-
-  const nums = [
-    toFixedHex(proof.pi_a[0]),
-    toFixedHex(proof.pi_a[1]),
-    toFixedHex(proof.pi_b[0][1]), // NOTE ENDIAN DIFFERENCES!
-    toFixedHex(proof.pi_b[0][0]),
-    toFixedHex(proof.pi_b[1][1]),
-    toFixedHex(proof.pi_b[1][0]),
-    toFixedHex(proof.pi_c[0]),
-    toFixedHex(proof.pi_c[1]),
-  ];
-
-  const p = abi.encode(
-    ["uint", "uint", "uint", "uint", "uint", "uint", "uint", "uint"],
-    nums
-  );
-
-  return p;
+  return serializeG16Proof(proof);
 }
 
 export type GenerateProofFn = (

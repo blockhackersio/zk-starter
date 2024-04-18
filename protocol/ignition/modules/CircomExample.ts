@@ -6,9 +6,9 @@ const Groth16VerifierModule = buildModule("Groth16VerifierModule", (m) => {
   return { g16Verifier };
 });
 
-export default buildModule("Protocol", (m) => {
+export default buildModule("CircomExample", (m) => {
   const { g16Verifier } = m.useModule(Groth16VerifierModule);
-  const verifier = m.contract("Multiplier", [g16Verifier]);
+  const verifier = m.contract("CircomExample", [g16Verifier]);
 
   return { verifier };
 });

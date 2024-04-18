@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd protocol && pnpm build",
+    "build": "cd protocol && pnpm build && cd ../frontend && pnpm build",
     "test": "cd protocol && pnpm test",
     "dev": "concurrently -r \"cd protocol && pnpm dev\" \"wait-on tcp:8545 && cd frontend && pnpm dev\""
   },
