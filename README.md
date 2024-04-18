@@ -197,8 +197,8 @@ To add a new circuit you need to do the following:
 5. There should be an ignite module created for you at `./ignite/modules/NewCurcuitVerifier.ts` you can use it in a similar way to the example:
     ```diff
     import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
-    import MultiplierVerifier from "./MultiplierVerifier";
-    +import NewCircuitVerifier from "./NewCircuitVerifier";
+    import MultiplierVerifier from "./generated/MultiplierVerifier";
+    +import NewCircuitVerifier from "./generated/NewCircuitVerifier";
 
     export default buildModule("CircomExample", (m) => {
       const { verifier: multiplierVerifier } = m.useModule(MultiplierVerifier);
