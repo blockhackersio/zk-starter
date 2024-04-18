@@ -186,7 +186,7 @@ To add a new circuit you need to do the following:
    - `./compiled/new_circuit.r1cs`
    - `./compiled/new_circuit.zkey`
    - `./contracts/generated/new_circuit.sol`
-   - `./ignition/modules/NewCircuitVerifier.ts`
+   - `./ignition/modules/generated/NewCircuitVerifier.ts`
    - Typechain types for the new_circuit.sol contract
 4. Adjust the `CircomExample.sol` contract to include the new generated verifier contract for example:
     ```diff
