@@ -13,7 +13,7 @@ contract CircomExample {
     function parseProof(
         bytes memory data
     )
-        public
+        internal
         pure
         returns (uint[2] memory a, uint[2][2] memory b, uint[2] memory c)
     {
