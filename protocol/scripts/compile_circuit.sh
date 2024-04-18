@@ -44,3 +44,20 @@ echo ""
 echo "Export verifier..."
 echo "=========================================="
 pnpm snarkjs zkey export solidityverifier $G16ZKEY $SOL_VERIFIER
+
+FNAME_CAPITALIZED=$(echo "$FNAME" | sed -e 's/[-_]\([a-z]\)/\u\1/g' -e 's/^\([a-z]\)/\u\1/')
+sed -i "s/contract Groth16Verifier/contract ${FNAME_CAPITALIZED}Verifier/g" $SOL_VERIFIER
+
+mkdir -p ignition/modules
+TARGET_FILE="./ignition/modules/${FNAME_CAPITALIZED}Verifier.ts"
+
+cat > "${TARGET_FILE}" <<EOF
+import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
+
+export default buildModule("${FNAME_CAPITALIZED}Verifier", (m) => {
+  const verifier = m.contract("${FNAME_CAPITALIZED}Verifier", []);
+  return { verifier };
+});
+EOF
+
+echo "File written to ${TARGET_FILE}"
