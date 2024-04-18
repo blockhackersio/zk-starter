@@ -175,6 +175,38 @@ This repository provides several scripts to help streamline the development and 
 | `pnpm test`    | Runs tests for both the circuits and the smart contracts to ensure integrity.          |
 | `pnpm dev`     | Executes a full build, spins up a Hardhat local node, deploys contracts, and launches<br/> the React frontend at [http://localhost:5173](http://localhost:5173). |
 
+
+## Adding new circuit
+
+To add a new circuit you need to do the following:
+
+1. create a new circom file `./circuits/new_circuit.circom`
+2. Build the project with `pnpm build`
+3. Adjust the `CircomExample.sol` contract to include the new generated verifier contract for example:
+    ```diff
+    import {MultiplierVerifier} from "./generated/multiplier.sol";
+    +import {NewCircuitVerifier} from "./generated/new_circuit.sol";
+    ```
+    And use it in a similar way to the other circuit.
+4. There should be an ignite module created for you at `./ignite/modules/NewCurcuitVerifier.ts` you can use it in a similar way to the example:
+    ```diff
+    import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
+    import MultiplierVerifier from "./MultiplierVerifier";
+    +import NewCircuitVerifier from "./NewCircuitVerifier";
+
+    export default buildModule("CircomExample", (m) => {
+      const { verifier: multiplierVerifier } = m.useModule(MultiplierVerifier);
+      +const { verifier: newCircuitVerifier } = m.useModule(NewCircuitVerifier);
+      // etc...
+    });
+    ```
+5. Update the way you use the zklib functions to use the new circuit in `./src/index.ts`:
+    ```
+    return await generateGroth16Proof({ a, b }, "new_circuit");
+    ```
+6. Now update your frontend if necessary depending on the API changes you made
+
+
 ## Contributing
 
 We welcome contributions from the community! If you'd like to improve the opinionated zero-knowledge starter repo, please feel free to fork the repository, make your changes, and submit a pull request. We appreciate your input!
