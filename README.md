@@ -188,42 +188,52 @@ This repository provides several scripts to help streamline the development and 
 | `pnpm dev`     | Executes a full build, spins up a Hardhat local node, deploys contracts, and launches<br/> the React frontend at [http://localhost:5173](http://localhost:5173). |
 
 
-## Adding new circuit
+## Adding a New Circuit
 
-To add a new circuit you need to do the following:
+To integrate a new circuit into your project, follow these steps:
 
-1. create a new circom file `./circuits/new_circuit.circom`
-2. Build the project with `pnpm build` this will create the following files:
-   - `./compiled/new_circuit_js/**`
-   - `./compiled/new_circuit.r1cs`
-   - `./compiled/new_circuit.zkey`
-   - `./contracts/generated/new_circuit.sol`
-   - `./ignition/modules/generated/NewCircuitVerifier.ts`
-   - Typechain types for the new_circuit.sol contract
-4. Adjust the `CircomExample.sol` contract to include the new generated verifier contract for example:
-    ```diff
-    import {MultiplierVerifier} from "./generated/multiplier.sol";
-    +import {NewCircuitVerifier} from "./generated/new_circuit.sol";
-    ```
-    And use it in a similar way to the other circuit.
-5. There should be an ignite module created for you at `./ignite/modules/NewCurcuitVerifier.ts` you can use it in a similar way to the example:
-    ```diff
-    import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
-    import MultiplierVerifier from "./generated/MultiplierVerifier";
-    +import NewCircuitVerifier from "./generated/NewCircuitVerifier";
+1. **Create a New Circuit File:**
+   - Initialize a new circuit by creating a `.circom` file at `./circuits/new_circuit.circom`.
 
-    export default buildModule("CircomExample", (m) => {
-      const { verifier: multiplierVerifier } = m.useModule(MultiplierVerifier);
-    +  const { verifier: newCircuitVerifier } = m.useModule(NewCircuitVerifier);
-      // etc...
-    });
-    ```
-6. Update the way you use the zklib functions to use the new circuit in `./src/index.ts`:
-    ```ts
-    await generateGroth16Proof({ a, b }, "new_circuit");
-    ```
-7. Now update your frontend if necessary depending on the API changes you made
+2. **Build the Project:**
+   - Run `pnpm build` to compile the new circuit. This process generates the following files:
+     - `./compiled/new_circuit_js/**`
+     - `./compiled/new_circuit.r1cs`
+     - `./compiled/new_circuit.zkey`
+     - `./contracts/generated/new_circuit.sol`
+     - `./ignition/modules/generated/NewCircuitVerifier.ts`
+     - Typechain types for `new_circuit.sol`
 
+3. **Modify the Smart Contract:**
+   - Update the `CircomExample.sol` contract to include the new verifier contract. Example changes:
+     ```diff
+     import {MultiplierVerifier} from "./generated/multiplier.sol";
+     +import {NewCircuitVerifier} from "./generated/new_circuit.sol";
+     ```
+   - Utilize the new verifier similarly to existing circuits.
+
+4. **Integrate with Ignite Module:**
+   - An Ignite module `NewCircuitVerifier.ts` will be automatically created. Use it as shown:
+     ```diff
+     import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
+     import MultiplierVerifier from "./generated/MultiplierVerifier";
+     +import NewCircuitVerifier from "./generated/NewCircuitVerifier";
+
+     export default buildModule("CircomExample", (m) => {
+       const { verifier: multiplierVerifier } = m.useModule(MultiplierVerifier);
+     +  const { verifier: newCircuitVerifier } = m.useModule(NewCircuitVerifier);
+       // etc...
+     });
+     ```
+
+5. **Update Application Logic:**
+   - Adjust your application code to utilize the new circuit. For example, in `./src/index.ts`:
+     ```ts
+     await generateGroth16Proof({ a, b }, "new_circuit");
+     ```
+
+6. **Revise Frontend As Necessary:**
+   - Make any required updates to the frontend, especially if the API or interaction patterns have changed due to the new circuit.
 
 ## Contributing
 
