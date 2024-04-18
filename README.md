@@ -1,4 +1,8 @@
 # zk-starter
+![Solidity](https://img.shields.io/badge/-Solidity-363636?style=flat-square&logo=solidity&logoColor=white)
+![Circom](https://img.shields.io/badge/-Circom-AA4F8B?style=flat-square&logo=circom&logoColor=white)
+![React](https://img.shields.io/badge/-React-4499cc?style=flat-square&logo=react&logoColor=white)
+
 ### An Opinionated Zero Knowledge Starter Repository for Circom, Solidity and React
 
 This repository offers an integrated setup for developing and testing zero-knowledge proofs using a modern stack designed to streamline your development workflow. It combines the robust functionalities of Hardhat, Circom, and React to provide a cohesive environment for building and deploying smart contracts and zero-knowledge circuits in a production-like frontend interface.
