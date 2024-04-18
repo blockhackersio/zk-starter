@@ -4,6 +4,7 @@
 /node_modules
 /compiled
 /contracts/generated
+/ignition/modules/generated
 /pot
 
 node_modules
