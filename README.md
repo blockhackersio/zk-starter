@@ -196,13 +196,13 @@ To add a new circuit you need to do the following:
 
     export default buildModule("CircomExample", (m) => {
       const { verifier: multiplierVerifier } = m.useModule(MultiplierVerifier);
-      +const { verifier: newCircuitVerifier } = m.useModule(NewCircuitVerifier);
+    +  const { verifier: newCircuitVerifier } = m.useModule(NewCircuitVerifier);
       // etc...
     });
     ```
 5. Update the way you use the zklib functions to use the new circuit in `./src/index.ts`:
-    ```
-    return await generateGroth16Proof({ a, b }, "new_circuit");
+    ```ts
+    await generateGroth16Proof({ a, b }, "new_circuit");
     ```
 6. Now update your frontend if necessary depending on the API changes you made
 
