@@ -1,5 +1,5 @@
 # zk-starter
-### An Opinionated Zero Knowledge Starter Repository for Circom and Solidity
+### An Opinionated Zero Knowledge Starter Repository for Circom, Solidity and React
 
 This repository offers an integrated setup for developing and testing zero-knowledge proofs using a modern stack designed to streamline your development workflow. It combines the robust functionalities of Hardhat, Circom, and React to provide a cohesive environment for building and deploying smart contracts and zero-knowledge circuits in a production-like frontend interface.
 
