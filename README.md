@@ -181,14 +181,20 @@ This repository provides several scripts to help streamline the development and 
 To add a new circuit you need to do the following:
 
 1. create a new circom file `./circuits/new_circuit.circom`
-2. Build the project with `pnpm build`
-3. Adjust the `CircomExample.sol` contract to include the new generated verifier contract for example:
+2. Build the project with `pnpm build` this will buid the following files:
+   - `./compiled/new_circuit_js/**`
+   - `./compiled/new_circuit.r1cs`
+   - `./compiled/new_circuit.zkey`
+   - `./contracts/generated/new_circuit.sol`
+   - `./ignition/modules/NewCircuitVerifier.ts`
+   - Typechain types for the new_circuit.sol contract
+4. Adjust the `CircomExample.sol` contract to include the new generated verifier contract for example:
     ```diff
     import {MultiplierVerifier} from "./generated/multiplier.sol";
     +import {NewCircuitVerifier} from "./generated/new_circuit.sol";
     ```
     And use it in a similar way to the other circuit.
-4. There should be an ignite module created for you at `./ignite/modules/NewCurcuitVerifier.ts` you can use it in a similar way to the example:
+5. There should be an ignite module created for you at `./ignite/modules/NewCurcuitVerifier.ts` you can use it in a similar way to the example:
     ```diff
     import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
     import MultiplierVerifier from "./MultiplierVerifier";
@@ -200,11 +206,11 @@ To add a new circuit you need to do the following:
       // etc...
     });
     ```
-5. Update the way you use the zklib functions to use the new circuit in `./src/index.ts`:
+6. Update the way you use the zklib functions to use the new circuit in `./src/index.ts`:
     ```ts
     await generateGroth16Proof({ a, b }, "new_circuit");
     ```
-6. Now update your frontend if necessary depending on the API changes you made
+7. Now update your frontend if necessary depending on the API changes you made
 
 
 ## Contributing
