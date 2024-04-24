@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  circom_runtime: 0.1.25
+
 importers:
 
   .:
@@ -2588,11 +2591,11 @@ packages:
       safe-buffer: 5.2.1
     dev: false
 
-  /circom_runtime@0.1.24:
-    resolution: {integrity: sha512-H7/7I2J/cBmRnZm9docOCGhfxzS61BEm4TMCWcrZGsWNBQhePNfQq88Oj2XpUfzmBTCd8pRvRb3Mvazt3TMrJw==}
+  /circom_runtime@0.1.25:
+    resolution: {integrity: sha512-xBGsBFF5Uv6AKvbpgExYqpHfmfawH2HKe+LyjfKSRevqEV8u63i9KGHVIILsbJNW+0c5bm/66f0PUYQ7qZSkJA==}
     hasBin: true
     dependencies:
-      ffjavascript: 0.2.60
+      ffjavascript: 0.3.0
     dev: false
 
   /circom_tester@0.0.20:
@@ -3372,6 +3375,14 @@ packages:
 
   /ffjavascript@0.2.63:
     resolution: {integrity: sha512-dBgdsfGks58b66JnUZeZpGxdMIDQ4QsD3VYlRJyFVrKQHb2kJy4R2gufx5oetrTxXPT+aEjg0dOvOLg1N0on4A==}
+    dependencies:
+      wasmbuilder: 0.0.16
+      wasmcurves: 0.2.2
+      web-worker: 1.2.0
+    dev: false
+
+  /ffjavascript@0.3.0:
+    resolution: {integrity: sha512-l7sR5kmU3gRwDy8g0Z2tYBXy5ttmafRPFOqY7S6af5cq51JqJWt5eQ/lSR/rs2wQNbDYaYlQr5O+OSUf/oMLoQ==}
     dependencies:
       wasmbuilder: 0.0.16
       wasmcurves: 0.2.2
@@ -5153,7 +5164,7 @@ packages:
       '@iden3/binfileutils': 0.0.11
       bfj: 7.1.0
       blake2b-wasm: 2.4.0
-      circom_runtime: 0.1.24
+      circom_runtime: 0.1.25
       ejs: 3.1.9
       fastfile: 0.0.20
       ffjavascript: 0.2.63

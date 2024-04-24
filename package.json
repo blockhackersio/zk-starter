@@ -17,5 +17,8 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "wait-on": "^7.2.0"
+  },
+  "resolutions": {
+    "circom_runtime": "0.1.25"
   }
 }
