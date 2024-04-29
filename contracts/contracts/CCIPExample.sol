@@ -164,4 +164,14 @@ contract CCIPExample is CCIPReceiver, AccessControl {
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
         allowlistedChains[_destinationChainSelector] = allowed;
     }
+
+    function updateAllowedRemotes(
+        address _remoteAddress,
+        uint64 _chainId,
+        bool allowed
+    ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        allowedRemotes[
+            keccak256(abi.encode(_remoteAddress, _chainId))
+        ] = allowed;
+    }
 }
