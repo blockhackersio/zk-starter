@@ -35,7 +35,9 @@
     "mocha": "^10.4.0",
     "rollup": "^4.14.2",
     "snarkjs": "^0.7.3",
-    "solc": "0.8.24"
+    "solc": "0.8.24",
+    "@chainlink/contracts-ccip": "^1.4.0",
+    "@openzeppelin/contracts": "^5.0.2"
   },
   "devDependencies": {
     "@rollup/plugin-json": "^6.1.0",
